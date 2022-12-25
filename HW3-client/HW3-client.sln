@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HW3-client", ".", "{329E7576-B6C0-4DAC-AFEC-FD4530BFC1BD}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_62894"
+		Debug.AspNetCompiler.PhysicalPath = "..\HW3-client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62894\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_62894"
+		Release.AspNetCompiler.PhysicalPath = "..\HW3-client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62894\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "62894"
+		SlnRelativePath = "..\HW3-client\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{329E7576-B6C0-4DAC-AFEC-FD4530BFC1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329E7576-B6C0-4DAC-AFEC-FD4530BFC1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70F759BC-5930-4072-95C5-83966275818A}
+	EndGlobalSection
+EndGlobal

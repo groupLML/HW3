@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../js/ajaxCalls.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="../css/LoginPage.css" rel="stylesheet" />
+    <link href="../css/StyleSheet.css" rel="stylesheet" />
+
+    <script>
+
+        $(document).ready(function () {
+
+            if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+                api = "https://localhost:7154/api/Users/";
+            else
+                api = "https://proj.ruppin.ac.il/cgroup36/test2/tar1/api/Users/";
+
+            LoginUser = JSON.parse(sessionStorage.getItem("User"));
+            renderLoginUser();
+            renderInputs();
+
+            $("#UpdateForm").submit(putUserToServer); //form validation
+        })
+
+        function putUserToServer() { //put to server
+            const firstName = $("#firstNameTBU").val();
+            const lastName = $("#lastNameTBU").val();
+            const email = LoginUser.email;
+            const password = $("#passwordTBU").val();
+
+            const User = {
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+                Password: password
+            };
+
+            ajaxCall("PUT", api + email, JSON.stringify(User), successPutFCBU, errorPutFCBU);
+
+            return false;
+        }
+
+        function successPutFCBU(data) {
+            console.log(data);
+            if (data == true) {
+                alert("In Success");
+
+                const NewUser = {
+                    firstName: $("#firstNameTBU").val(),
+                    lastName: $("#lastNameTBU").val(),
+                    email: LoginUser.email,
+                    password: $("#passwordTBU").val()
+                };
+                sessionStorage.setItem("User", JSON.stringify(NewUser));
+
+                if (sessionStorage.getItem("FlatId") == null) //עוזר לנו לדעת מאיזה דף הגענו אליו
+                    window.location.href = `FlatPage.html`;
+                else
+                    window.location.href = `VactionPage.html`;
+            }
+            else {
+                alert("There is a problem");
+            }
+        }
+
+        function errorPutFCBU(err) {
+            console.log(err);
+        }
+
+        function renderLoginUser() {
+            str = `<p>Hello ${LoginUser.firstName}</p>`;
+            str += `<input type="button" class="btn login" value="Logout" onclick="logOut()" style="width:auto;">`;
+            document.getElementById("userU_ph").innerHTML = str;
+        }
+
+        function logOut() {
+            swal({ // this will open a dialouge
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            })
+                .then(function (willDelete) {
+                    if (willDelete) clearStorage();
+                });
+        }
+
+        function clearStorage() {
+            sessionStorage.clear();
+            window.location.href = `FlatPage.html`;
+        }
+
+        function renderInputs() {
+            strEmail = `<input autocomplete="userEmail" id="emailTBU" type="text" class="form__input" value=${LoginUser.email} readonly />`;
+            document.getElementById("inputEmail_ph").innerHTML += strEmail;
+
+            strFirstName = `<input autocomplete="userFirstName" id="firstNameTBU" type="text" class="form__input" value=${LoginUser.firstName} maxlength="20" required/>`;
+            document.getElementById("inputFirstName_ph").innerHTML += strFirstName;
+
+            strLastName = `<input autocomplete="userLastName" id="lastNameTBU" type="text" class="form__input" value=${LoginUser.lastName} maxlength="20" required />`;
+            document.getElementById("inputLastName_ph").innerHTML += strLastName;
+
+            strPassword = ` <input id="passwordTBU" type="password" name="password" class="form__input" value=${LoginUser.password} maxlength="10" required/>`;
+            document.getElementById("inputPassword_ph").innerHTML += strPassword;
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="loginPage">
+        <div id="userU_ph"></div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col" id="titleUpdate">
+                <h1>Update Your Details:</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <form class="form login" id="UpdateForm">
+
+            <div class="form__field" id="inputEmail_ph">
+                <label for="login_Username">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-.4 4.25l-7.07 4.42c-.32.2-.74.2-1.06 0L4.4 8.25a.85.85 0 1 1 .9-1.44L12 11l6.7-4.19a.85.85 0 1 1 .9 1.44z" /></svg>
+                    <span class="hidden">User Email</span>
+                </label>
+            </div>
+
+            <div class="form__field" id="inputFirstName_ph">
+                <label for="login_UserFirstName">
+                    <svg class="icon">
+                        <use xlink:href="#icon-user"></use>
+                    </svg><span class="hidden">User First Name</span>
+                </label>
+            </div>
+
+            <div class="form__field" id="inputLastName_ph">
+                <label for="login_UserLastName">
+                    <svg class="icon">
+                        <use xlink:href="#icon-user"></use>
+                    </svg><span class="hidden">User Last Name</span>
+                </label>
+            </div>
+
+
+            <div class="form__field" id="inputPassword_ph">
+                <label for="login_password">
+                    <svg class="icon">
+                        <use xlink:href="#icon-lock"></use>
+                    </svg><span class="hidden">Password</span>
+                </label>
+            </div>
+
+            <div class="form__field">
+                <input type="submit" value="Save" />
+            </div>
+        </form>
+
+    </div>
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="icons">
+        <symbol id="icon-arrow-right" viewBox="0 0 1792 1792">
+            <path d="M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293H245q-52 0-84.5-37.5T128 1024V896q0-53 32.5-90.5T245 768h704L656 474q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z" />
+        </symbol>
+        <symbol id="icon-lock" viewBox="0 0 1792 1792">
+            <path d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z" />
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 1792 1792">
+            <path d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z" />
+        </symbol>
+        <symbol id="icon-email" viewBox="0 0 1792 1792">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        </symbol>
+    </svg>
+    
+
+</body>
+
+</html>
+

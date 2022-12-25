@@ -1,0 +1,67 @@
+﻿body {
+    background-color: #e8e8e8c7;
+    text-align: center;
+    margin: 0px auto;
+    padding:1%;
+}
+
+.btn {
+    background-color: #72c2daf7;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 5%), 0 5px 10px 0 rgb(0 0 0 / 10%);
+    font-size: 17px;
+}
+
+.btn:hover {
+        background-color: #61aac0f7;
+}
+
+td {
+    text-align: left;
+    padding: 3px 10px 3px 3px;
+}
+
+.card {
+    background-color: #dbe4ed7a;
+    margin: 5px 0px;
+    padding: 5px 0px;
+    text-align: left;
+}
+
+.col-3 {
+    width: 300px;
+    margin: 0px;
+}
+
+.card .btn {
+    margin: 0px 70px 5px 70px;
+}
+
+table {
+    margin: 0px auto;
+}
+
+input, select{
+    width: 170px;
+}
+
+.btn.login {
+    width: 100px;
+    margin-right: 5px;
+}
+
+.loginPage {
+    text-align: left
+}
+
+.loginPage > p {
+        margin: 0px 0px 5px 8px;
+}
+
+.btnSubmit {
+    text-align: center;
+}
+
+.btnSubmit >input{
+    margin: 10px;
+}
+
